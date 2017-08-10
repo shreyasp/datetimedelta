@@ -5,9 +5,7 @@ from datetime import datetime
 import sys
 
 class ExtendedDateTime(int):
-
     def __new__(cls, *args, **kwargs):
-        print(cls, *args)
         _instance = int.__new__(cls, *args, **kwargs)
         setattr(_instance, 'current_date', datetime.now())
         return _instance
@@ -33,7 +31,7 @@ class ExtendedDateTime(int):
 
 
 def main():
-    ex = ExtendedDateTime(-12)
+    ex = ExtendedDateTime(12)
     print('Value: ', ex)
 
     print('Day: ', ex.day)
