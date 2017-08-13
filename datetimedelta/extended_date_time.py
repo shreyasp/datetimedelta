@@ -33,17 +33,17 @@ class ExtendedDateTime(int):
         return self
 
     @property
-    def day(self):
+    def days(self):
         setattr(self, '_calc_day', True)
         return self
 
     @property
-    def week(self):
+    def weeks(self):
         setattr(self, '_calc_week', True)
         return self
 
     @property
-    def month(self):
+    def months(self):
         setattr(self, '_calc_month', True)
         return self
 
@@ -62,27 +62,3 @@ class ExtendedDateTime(int):
 
         _resultant_data = datetime.now() + _relative_delta
         setattr(self, '_resultant_data', _resultant_data)
-
-
-def test_func():
-    ex = ExtendedDateTime(1)
-
-    try:
-        print('Day Ago: ', ex.day.ago)
-        print('Day After: ', ex.day.after)
-
-        print('Week Ago: ', ex.week.ago)
-        print('Week After: ', ex.week.after)
-
-        print('Month Ago: ', ex.month.ago)
-        print('Month After: ', ex.month.after)
-
-        print('Error', ex.ago)
-
-    except Exception as exp:
-        print('Error: ', exp)
-        sys.exit(-1)
-
-
-if __name__ == '__main__':
-    test_func()

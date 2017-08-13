@@ -18,5 +18,9 @@ setup(
 		'datetime',
 		'delta',
 		'inline'
+	],
+	test_suite='nose.collector',
+	tests_require=[
+		'nose'
 	]
 )

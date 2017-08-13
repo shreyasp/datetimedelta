@@ -1,1 +1,1 @@
-from .datetimedelta.extended_date_time import ExtendedDateTime
+from datetimedelta.extended_date_time import ExtendedDateTime
