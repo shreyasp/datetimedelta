@@ -24,26 +24,26 @@ class ExtendedDateTime(int):
             _calc_factor = 1
 
         self._calc_date_x(_calc_factor)
+        self._reset_attributes()
         return self._resultant_data
+
+    def _reset_attributes(self):
+        for attr in self.STANDARD_ATTRS:
+            setattr(self, attr, False)
+        return self
 
     @property
     def day(self):
         setattr(self, '_calc_day', True)
-        setattr(self, '_calc_week', False)
-        setattr(self, '_calc_month', False)
         return self
 
     @property
     def week(self):
         setattr(self, '_calc_week', True)
-        setattr(self, '_calc_day', False)
-        setattr(self, '_calc_month', False)
         return self
 
     @property
     def month(self):
-        setattr(self, '_calc_day', False)
-        setattr(self, '_calc_week', False)
         setattr(self, '_calc_month', True)
         return self
 
@@ -57,13 +57,15 @@ class ExtendedDateTime(int):
         elif(getattr(self, '_calc_month')):
             _relative_delta = relativedelta(months=_calc_factor * self)
 
+        else:
+            raise Exception('Need days or weeks or months to compute datetime delta')
+
         _resultant_data = datetime.now() + _relative_delta
         setattr(self, '_resultant_data', _resultant_data)
 
 
 def test_func():
     ex = ExtendedDateTime(1)
-    print('Gap: ', ex)
 
     try:
         print('Day Ago: ', ex.day.ago)
@@ -74,6 +76,8 @@ def test_func():
 
         print('Month Ago: ', ex.month.ago)
         print('Month After: ', ex.month.after)
+
+        print('Error', ex.ago)
 
     except Exception as exp:
         print('Error: ', exp)
