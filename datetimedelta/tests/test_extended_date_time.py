@@ -73,6 +73,26 @@ class TestExtendedDateTime(TestCase):
 
 		self.assertEqual(calculated_date, expected_date)
 
+	# Check whether Years.ago & Years.after are evaluated correctly
+	def test_years_ago_delta(self):
+		years_gap = ExtendedDateTime(1)
+
+		current_date = datetime.now().date()
+		delta = relativedelta(years=-1)
+		expected_date = current_date + delta
+		calculated_date = years_gap.years.ago.date()		
+
+		self.assertEqual(calculated_date, expected_date)
+
+	def test_years_after_delta(self):
+		years_gap = ExtendedDateTime(1)
+		
+		current_date = datetime.now().date()
+		delta = relativedelta(years=1)
+		expected_date = current_date + delta
+		calculated_date = years_gap.years.after.date()		
+
+		self.assertEqual(calculated_date, expected_date)
 
 	# Check whether proper exceptions raised for no days, weeks, months given
 	def test_no_delta_type_ago_exception(self):
@@ -80,14 +100,13 @@ class TestExtendedDateTime(TestCase):
 		with self.assertRaises(Exception) as context:
 			extend_date_time_obj.ago
 
-		self.assertTrue('Need days or weeks or months to compute datetime delta',
+		self.assertTrue('Need days or weeks or months or years to compute datetime delta',
 			str(context.exception))
-
 
 	def test_no_delta_type_after_exception(self):
 		extend_date_time_obj = ExtendedDateTime(2)
 		with self.assertRaises(Exception) as context:
 			extend_date_time_obj.after
 
-		self.assertTrue('Need days or weeks or months to compute datetime delta',
+		self.assertTrue('Need days or weeks or months or years to compute datetime delta',
 			str(context.exception))
