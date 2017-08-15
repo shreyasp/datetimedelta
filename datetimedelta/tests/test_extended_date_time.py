@@ -92,7 +92,6 @@ class TestExtendedDateTime(TestCase):
         delta = relativedelta(years=1)
         expected_date = current_date + delta
         calculated_date = years_gap.years.after.date()
-
         self.assertEqual(calculated_date, expected_date)
 
     # Check whether proper exceptions raised for no days, weeks, months given
